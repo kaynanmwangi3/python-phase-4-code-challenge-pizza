@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PizzaForm from "./PizzaForm";
 
-function Home() {
+function Restaurant() {
   const [{ data: restaurant, error, status }, setRestaurant] = useState({
     data: null,
     error: null,
@@ -11,7 +11,7 @@ function Home() {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`/restaurants/${id}`).then((r) => {
+    fetch(`http://127.0.0.1:5000/restaurants/${id}`).then((r) => {
       if (r.ok) {
         r.json().then((restaurant) =>
           setRestaurant({ data: restaurant, error: null, status: "resolved" })
@@ -39,7 +39,7 @@ function Home() {
   }
 
   if (status === "pending") return <h1>Loading...</h1>;
-  if (status === "rejected") return <h1>Error: {error.error}</h1>;
+  if (status === "rejected") return <h1>Error: {error}</h1>;
 
   return (
     <section className="container">
@@ -50,7 +50,7 @@ function Home() {
       <div className="card">
         <h2>Pizza Menu</h2>
         {restaurant.restaurant_pizzas.map((restaurant_pizza) => (
-          <div key={restaurant_pizza.pizza.id}>
+          <div key={restaurant_pizza.id}>
             <h3>{restaurant_pizza.pizza.name}</h3>
             <p>
               <em>{restaurant_pizza.pizza.ingredients}</em>
@@ -69,4 +69,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Restaurant;

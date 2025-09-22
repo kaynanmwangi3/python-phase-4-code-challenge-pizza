@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 function PizzaForm({ restaurantId, onAddPizza }) {
   const [pizzas, setPizzas] = useState([]);
@@ -7,7 +7,7 @@ function PizzaForm({ restaurantId, onAddPizza }) {
   const [formErrors, setFormErrors] = useState([]);
 
   useEffect(() => {
-    fetch("/pizzas")
+    fetch("http://127.0.0.1:5000/pizzas")
       .then((r) => r.json())
       .then(setPizzas);
   }, []);
@@ -19,7 +19,7 @@ function PizzaForm({ restaurantId, onAddPizza }) {
       restaurant_id: restaurantId,
       price,
     };
-    fetch("/restaurant_pizzas", {
+    fetch("http://127.0.0.1:5000/restaurant_pizzas", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function PizzaForm({ restaurantId, onAddPizza }) {
           </option>
         ))}
       </select>
-      <label htmlFor="pizza_id">Price:</label>
+      <label htmlFor="price">Price:</label>
       <input
         id="price"
         name="price"
